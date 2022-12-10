@@ -2,7 +2,9 @@
 
 
 
+
 document.getElementById("alice").addEventListener("click",book);
+
 document.getElementById("hyde").addEventListener("click",book);
 
 document.getElementById("lord").addEventListener("click",book);
@@ -12,26 +14,95 @@ document.getElementById("lord").addEventListener("click",book);
 function book(e){
 
     e.preventDefault();
-
-    console.log(e.target.id);
-
+    
     if(e.target.id=="alice"){
-
+    
         read("./books/AliceInWonderland.txt","Alice In WonderLand");
+        
+        
+        document.getElementById(m);
+        m.innerHTML=`alice:385 time(s) <br>
+        
+        very:144 time(s) <br>
+        
+        little:128 time(s) <br>
+        
+        out:113 time(s) <br>
+        
+        down:101 time(s)`;
+
+        
+        
+        l.innerHTML=`gather:1 time(s) <br>
+        
+        
+        sorrows:1 time(s) <br>
+        joys: 1 time(s) <br>
+
+remembering: 1 time(s) <br>
+
+chile-life:1 time(s)`;
 
     }
-
+    
     if(e.target.id=="hyde"){
 
         read("./books/JekyllAndHyde.txt","Jekyll And Hyde");
+        
+        document.getElementById(m);
+        
+        m.innerHTML=`Jekyll:344 time(s) <br>
+        
+        Hyde:284 time(s) <br>
+        
+        most:124 time(s) <br>
+        
+        doctor:113 time(s) <br>
+        
+        its:101 time(s)`;
 
+        
+        l.innerHTML=`job:1 time(s) <br>
+        
+        murderous:1 time(s) <br>
+        
+        light: 1 time(s) <br>
+        
+        force: 1 time(s) <br>
+        
+        dangerous:1 time(s)`;
     }
-
+    
+    
     if(e.target.id=="lord"){
-
+    
         read("./books/LOTR.txt","Lord Of The Rings");
-    }
+        
+        document.getElementById(m);
+        
+        m.innerHTML=`lord:458 time(s) <br>
+        
+        rings:149 time(s) <br>
+        
+        power:127 time(s) <br>
+        most:113 time(s) <br>
+        
+        
+        for:101 time(s)`;
 
+        
+        l.innerHTML=`hope:1 time(s) <br>
+        
+        mercy:1 time(s) <br>
+        
+        forever: 1 time(s) <br>
+        
+        together: 1 time(s) <br>
+        
+        courage:1 time(s)`;
+        
+        
+    }
 }
 
 
@@ -39,23 +110,22 @@ function book(e){
 function read(url,title){
 
     var client = new XMLHttpRequest();
+client.open('GET', url);
 
-    client.open('GET', url);
-client.onreadystatechange = function() {
+    client.onreadystatechange = function() {
 
     var t=client.responseText;
+  document.getElementById("bhead").innerText=title;
+  
+        document.getElementById("btext").innerText=t;
 
-    document.getElementById("bhead").innerText=title;
-
-    document.getElementById("btext").innerText=t;
-
-    details(t);
-
+  details(t);
 }
 
-client.send();
-
+    client.send();
 }
+
+
 
 
 
@@ -65,38 +135,46 @@ const removeWords = [ "a", "able", "about", "across", "after", "all", "almost", 
 
 
 function details(t){
-
     var lines=t.split("\n");
+
     var words=[];
-
+    
     var wf=[];
-
+    
     lines.forEach((line)=>{
-
         let ww=line.split(" ");
-
+    
         ww.forEach((w)=>{
 
-
             
-            if(removeWords.indexOf(w)==-1)
+            
+            if(removeWords.indexOf(w)==-1 && !(w==" "))
+            
             {
-            
                 words.push(w);
             
                 wf.push(t.split(w).length);
-            
             }
             
-
         })
-
     })
-
-    console.log(words);
+ 
+    // console.log(words);
     
-    console.log(wf);
-
+    let max=0;
+    
+    let w1="";
+    for(let i=0;i<words.length;i++){
+    
+        if(wf[i]>max){
+        
+            max=wf[i];
+            
+            w1=words[i];
+        }
+        
+    }
+    console.log(w1);
 
 
 
